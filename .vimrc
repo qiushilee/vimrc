@@ -1,23 +1,75 @@
-"macvim
+" load vim bundles using vundle
+source ~/.vimrc.bundles
+
+"gvimå­—ä½“è®¾ç½®
+set guifont=Inconsolata:h14
+
+"è¡Œé«˜
+set linespace=7
+
+"é…è‰²
+colorscheme vividchalk
+"set background=light
+
+"macvim {{{
 if has('gui_macvim')
   map <D-f> <c-f>
   map <D-b> <c-b>
   map <D-o> <c-o><c-o>
   map <D-r> <c-r>
+  map <D-k> <c-k>
+  map <D-j> <c-j>
+
+  "æ ‡ç­¾é¡µç®¡ç†
+  map <D-1> :tabr<cr>
+  map <D-2> :tabn 2<cr>
+  map <D-3> :tabn 3<cr>
+  map <D-4> :tabn 4<cr>
+  map <D-5> :tabn 5<cr>
+  map <D-5> :tabn 5<cr>
+  map <D-6> :tabn 6<cr>
+  map <D-7> :tabn 7<cr>
+  map <D-8> :tabn 8<cr>
+  map <D-9> :tabn 9<cr>
+  map <D-0> :tabl<cr>
   let g:user_emmet_leader_key='<D-y>'
 
-  "Í¸Ã÷
-  set transparency=30
-endif
+  "Tern for Vim
+  "Rename the variable under the cursor.
+  map <F6> :TernRename<cr>
+  "Show all references to the variable or property under the cursor.
+  map <F7> :TernRefs<cr>
+  "Jump to the definition of the thing under the cursor.
+  map <F8> :TernDef<cr>
 
-".vimrc ±£´æºóÁ¢¼´ÉúĞ§
+  "é€æ˜
+  "set transparency=15
+endif
+"}}}
+
+"Search {{{
+set hlsearch
+map <F10> :CtrlSF 
+"}}}
+
+"åˆ‡æ¢åˆ†å±
+map <D-w> <C-W><C-W>
+
+".vimrc ä¿å­˜åç«‹å³ç”Ÿæ•ˆ
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
-"²¹È«
+"è¡¥å…¨
 set cpt=.,w
 
-"ctrl+p
-let g:ctrlp_map = '<D-p>'
+"ä»£ç ç‰‡æ–­è¡¥å…¨ {{{
+let g:xptemplate_key = '<D-\>'
+let g:xptemplate_key_pum_only = '<D-r><D-r>'
+let g:xptemplate_vars="$author=qiushilee&$email=showbei@gmail.com"
+"let g:xptemplate_lib_filter = '~/.vim/customize'
+"}}}
+
+"ctrl+p {{{
+let g:ctrlp_map = '<D-t>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_by_filename = 1
 let g:ctrlp_working_path_mode = 'a'
@@ -26,94 +78,73 @@ let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("e")': [],
   \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
   \ }
-
-"JSHint
-map <F7> :JSHint<CR>
+"Speed up indexing
+"By default, CtrlP uses globpath() to build its index. A faster alternative is to use ag (FYI: ag is just like ack, except faster).
+"form: http://blog.patspam.com/2014/super-fast-ctrlp
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ -g ""'
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+"}}}
 
 "Brief Mode
 let g:SimpleJsIndenter_BriefMode = 1
 
-"ÓÀ¾Ã³·Ïú
+"æ°¸ä¹…æ’¤é”€
 set undofile
 set ul=9999
 
-"²»»»ĞĞ
+"ä¸æ¢è¡Œ
 set nowrap
 
-"ÏÔÊ¾ĞĞºÅ
-set nu!
+"æ˜¾ç¤ºè¡Œå·
+set number
 
-"¹Ø±Õgvim¹¤¾ßÌõ
-set guioptions=
-
-"gvim×ÖÌåÉèÖÃ
-set guifont=Inconsolata:h15
-
-"ÅäÉ«
-colorscheme vividchalk
-
-"Ëõ½ø
+"ç¼©è¿› {{{
 set shiftwidth=2
 set tabstop=2
 set et
-filetype plugin indent on
+"}}}
 
-"´ò¿ªÕÛµş
+"æ‰“å¼€æŠ˜å 
 set foldmethod=marker
 
-"°ïÖúÓïÑÔ
-"set helplang=cn
+"å¸®åŠ©è¯­è¨€
+set helplang=cn
 
-"Ö§³ÖDOM¹Ø¼ü×Ö
-let javascript_enable_domhtmlcss=1
-
-"±àÂë
+"ç¼–ç  {{{
 "fileencoding:
-"    Vim ÖĞµ±Ç°±à¼­µÄÎÄ¼şµÄ×Ö·û±àÂë·½Ê½£¬Vim ±£´æÎÄ¼şÊ±Ò²»á½«ÎÄ¼ş±£´æÎªÕâÖÖ×Ö·û±àÂë·½Ê½ (²»¹ÜÊÇ·ñĞÂÎÄ¼ş¶¼Èç´Ë)
+"    Vim ä¸­å½“å‰ç¼–è¾‘çš„æ–‡ä»¶çš„å­—ç¬¦ç¼–ç æ–¹å¼ï¼ŒVim ä¿å­˜æ–‡ä»¶æ—¶ä¹Ÿä¼šå°†æ–‡ä»¶ä¿å­˜ä¸ºè¿™ç§å­—ç¬¦ç¼–ç æ–¹å¼ (ä¸ç®¡æ˜¯å¦æ–°æ–‡ä»¶éƒ½å¦‚æ­¤)
 "fileencodings:
-"    Vim×Ô¶¯Ì½²âfileencodingµÄË³ĞòÁĞ±í£¬ Æô¶¯Ê±»á°´ÕÕËüËùÁĞ³öµÄ×Ö·û±àÂë·½Ê½ÖğÒ»Ì½²â¼´½«´ò¿ªµÄÎÄ¼şµÄ×Ö·û±àÂë·½Ê½£¬
-"    ²¢ÇÒ½« fileencoding ÉèÖÃÎª×îÖÕÌ½²âµ½µÄ×Ö·û±àÂë·½Ê½¡£Òò´Ë×îºÃ½«Unicode ±àÂë·½Ê½·Åµ½Õâ¸öÁĞ±íµÄ×îÇ°Ãæ£¬
-"    ½«À­¶¡ÓïÏµ±àÂë·½Ê½ latin1 ·Åµ½×îºóÃæ
+"    Vimè‡ªåŠ¨æ¢æµ‹fileencodingçš„é¡ºåºåˆ—è¡¨ï¼Œ å¯åŠ¨æ—¶ä¼šæŒ‰ç…§å®ƒæ‰€åˆ—å‡ºçš„å­—ç¬¦ç¼–ç æ–¹å¼é€ä¸€æ¢æµ‹å³å°†æ‰“å¼€çš„æ–‡ä»¶çš„å­—ç¬¦ç¼–ç æ–¹å¼ï¼Œ
+"    å¹¶ä¸”å°† fileencoding è®¾ç½®ä¸ºæœ€ç»ˆæ¢æµ‹åˆ°çš„å­—ç¬¦ç¼–ç æ–¹å¼ã€‚å› æ­¤æœ€å¥½å°†Unicode ç¼–ç æ–¹å¼æ”¾åˆ°è¿™ä¸ªåˆ—è¡¨çš„æœ€å‰é¢ï¼Œ
+"    å°†æ‹‰ä¸è¯­ç³»ç¼–ç æ–¹å¼ latin1 æ”¾åˆ°æœ€åé¢
 set fileencodings=utf-8,gb2312,gbk,gb18030
 "termencoding:
-"    Vim Ëù¹¤×÷µÄÖÕ¶Ë (»òÕß Windows µÄ Console ´°¿Ú) µÄ×Ö·û±àÂë·½Ê½¡£Èç¹ûvimËùÔÚµÄtermÓëvim±àÂëÏàÍ¬£¬ÔòÎŞĞèÉèÖÃ¡£
-"    ÈçÆä²»È»£¬Äã¿ÉÒÔÓÃvimµÄtermencodingÑ¡Ïî½«×Ô¶¯×ª»»³ÉtermµÄ±àÂë.Õâ¸öÑ¡ÏîÔÚ Windows ÏÂ¶ÔÎÒÃÇ³£ÓÃµÄ GUI Ä£Ê½µÄ gVim ÎŞĞ§£¬
-"    ¶ø¶Ô Console Ä£Ê½µÄVim ¶øÑÔ¾ÍÊÇ Windows ¿ØÖÆÌ¨µÄ´úÂëÒ³£¬²¢ÇÒÍ¨³£ÎÒÃÇ²»ĞèÒª¸Ä±äËü
+"    Vim æ‰€å·¥ä½œçš„ç»ˆç«¯ (æˆ–è€… Windows çš„ Console çª—å£) çš„å­—ç¬¦ç¼–ç æ–¹å¼ã€‚å¦‚æœvimæ‰€åœ¨çš„termä¸vimç¼–ç ç›¸åŒï¼Œåˆ™æ— éœ€è®¾ç½®ã€‚
+"    å¦‚å…¶ä¸ç„¶ï¼Œä½ å¯ä»¥ç”¨vimçš„termencodingé€‰é¡¹å°†è‡ªåŠ¨è½¬æ¢æˆtermçš„ç¼–ç .è¿™ä¸ªé€‰é¡¹åœ¨ Windows ä¸‹å¯¹æˆ‘ä»¬å¸¸ç”¨çš„ GUI æ¨¡å¼çš„ gVim æ— æ•ˆï¼Œ
+"    è€Œå¯¹ Console æ¨¡å¼çš„Vim è€Œè¨€å°±æ˜¯ Windows æ§åˆ¶å°çš„ä»£ç é¡µï¼Œå¹¶ä¸”é€šå¸¸æˆ‘ä»¬ä¸éœ€è¦æ”¹å˜å®ƒ
 set termencoding=utf-8
 set fileformats=unix
 "encoding:
-"     Vim ÄÚ²¿Ê¹ÓÃµÄ×Ö·û±àÂë·½Ê½£¬°üÀ¨ Vim µÄ buffer (»º³åÇø)¡¢²Ëµ¥ÎÄ±¾¡¢ÏûÏ¢ÎÄ±¾µÈ¡£Ä¬ÈÏÊÇ¸ù¾İÄãµÄlocaleÑ¡Ôñ¡£
-"     ÓÃ»§ÊÖ²áÉÏ½¨ÒéÖ»ÔÚ .vimrc ÖĞ¸Ä±äËüµÄÖµ£¬ÊÂÊµÉÏËÆºõÒ²Ö»ÓĞÔÚ.vimrc ÖĞ¸Ä±äËüµÄÖµ²ÅÓĞÒâÒå¡£
-"     Äã¿ÉÒÔÓÃÁíÍâÒ»ÖÖ±àÂëÀ´±à¼­ºÍ±£´æÎÄ¼ş£¬ÈçÄãµÄvimµÄencodingÎªutf-8£¬Ëù±à¼­µÄÎÄ¼ş²ÉÓÃcp936±àÂë£¬
-"     vim»á×Ô¶¯½«¶ÁÈëµÄÎÄ¼ş×ª³Éutf-8(vimµÄÄÜ¶Á¶®µÄ·½Ê½£©£¬¶øµ±ÄãĞ´ÈëÎÄ¼şÊ±,ÓÖ»á×Ô¶¯×ª»Ø³Écp936£¨ÎÄ¼şµÄ±£´æ±àÂë)
+"     Vim å†…éƒ¨ä½¿ç”¨çš„å­—ç¬¦ç¼–ç æ–¹å¼ï¼ŒåŒ…æ‹¬ Vim çš„ buffer (ç¼“å†²åŒº)ã€èœå•æ–‡æœ¬ã€æ¶ˆæ¯æ–‡æœ¬ç­‰ã€‚é»˜è®¤æ˜¯æ ¹æ®ä½ çš„localeé€‰æ‹©ã€‚
+"     ç”¨æˆ·æ‰‹å†Œä¸Šå»ºè®®åªåœ¨ .vimrc ä¸­æ”¹å˜å®ƒçš„å€¼ï¼Œäº‹å®ä¸Šä¼¼ä¹ä¹Ÿåªæœ‰åœ¨.vimrc ä¸­æ”¹å˜å®ƒçš„å€¼æ‰æœ‰æ„ä¹‰ã€‚
+"     ä½ å¯ä»¥ç”¨å¦å¤–ä¸€ç§ç¼–ç æ¥ç¼–è¾‘å’Œä¿å­˜æ–‡ä»¶ï¼Œå¦‚ä½ çš„vimçš„encodingä¸ºutf-8ï¼Œæ‰€ç¼–è¾‘çš„æ–‡ä»¶é‡‡ç”¨cp936ç¼–ç ï¼Œ
+"     vimä¼šè‡ªåŠ¨å°†è¯»å…¥çš„æ–‡ä»¶è½¬æˆutf-8(vimçš„èƒ½è¯»æ‡‚çš„æ–¹å¼ï¼‰ï¼Œè€Œå½“ä½ å†™å…¥æ–‡ä»¶æ—¶,åˆä¼šè‡ªåŠ¨è½¬å›æˆcp936ï¼ˆæ–‡ä»¶çš„ä¿å­˜ç¼–ç )
 set encoding=utf-8
+"}}}
 
-"¼Ç×¡ÎÄ¼şÉÏ´Î´ò¿ªµÄÎ»ÖÃ
+"è®°ä½æ–‡ä»¶ä¸Šæ¬¡æ‰“å¼€çš„ä½ç½®
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-"ÇĞ»»·ÖÆÁ
-map <D-w> <C-W><C-W>
+"ç•Œé¢ {{{
+set guioptions=
+set laststatus=2
+"}}}
 
-"Vundle
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-" My Bundles here:
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'walm/jshint.vim'
-Bundle 'tpope/vim-surround'
-Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'vim-scripts/tir_black'
-Bundle 'drmingdrmer/xptemplate'
-let g:xptemplate_key = '<D-\>'
-let g:xptemplate_key_pum_only = '<D-r><D-r>'
-let g:xptemplate_vars="$author=qiushilee&$email=qiushi@taotaosou.com"
+"æ ¼å¼åŒ–ä»£ç 
+map <F5> :call JsBeautify()<cr>

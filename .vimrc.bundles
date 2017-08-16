@@ -1,0 +1,76 @@
+"Vundle
+set nocompatible              " be iMproved, required
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" My Bundles here:
+"Manage runtimepath
+Plugin 'tpope/vim-pathogen'
+
+"Comment
+Plugin 'scrooloose/nerdcommenter'
+
+"HTML {{{
+Plugin 'mattn/emmet-vim'
+Plugin 'mustache/vim-mustache-handlebars'
+"}}}
+
+"快速添加括号、引号、标签
+Plugin 'tpope/vim-surround'
+
+"File browser {{{
+Plugin 'kien/ctrlp.vim'
+
+"CtrlP C matching extension
+"Install on OS X (tested with 10.9.2 Mavericks):
+"export CFLAGS=-Qunused-arguments && export CPPFLAGS=-Qunused-arguments && cd ~/.vim/bundle/ctrlp-cmatcher && ./install.sh
+Plugin 'JazzCore/ctrlp-cmatcher'
+Plugin 'rking/ag.vim'
+
+"An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
+Plugin 'dyng/ctrlsf.vim'
+
+"True Sublime Text style multiple selections for Vim
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/nerdtree'
+"}}}
+
+"Color Scheme {{{
+Plugin 'vim-scripts/tir_black'
+Plugin 'Suave/vim-colors-guardian'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'altercation/vim-colors-solarized'
+"}}}
+
+"Auto complete {{{
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'drmingdrmer/xptemplate'
+"}}}
+
+"JavaScript {{{
+Plugin 'vim-scripts/OOP-javascript-indentation'
+Plugin 'othree/yajs.vim'
+Plugin 'othree/es.next.syntax.vim'
+Plugin 'nikvdp/ejs-syntax'
+Plugin 'maksimr/vim-jsbeautify'
+"}}}
+
+"Go {{{
+"Plugin 'fatih/vim-go'
+"}}}
+
+Plugin 'editorconfig/editorconfig-vim'
+"https://www.youtube.com/watch?v=9lVQ0VJY3ps
+Plugin 'dhruvasagar/vim-table-mode'
+
+call vundle#end()
+filetype plugin indent on
